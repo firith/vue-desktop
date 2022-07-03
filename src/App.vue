@@ -1,30 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="flex flex-col bg-white h-screen">
+    <header class="sticky top-0 bg-gradient-to-r from-blue-500 to-blue-600 py-4 px-4 shadow-lg">
+<!--      <img src="/images/intren.png" alt="">-->test
+    </header>
+    <div class="flex-1">
+    <router-view />
+    </div>
+    <footer class="sticky bottom-0 bg-slate-200 shadow-inner py-4 min-h-[3rem]">
+
+    </footer>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script setup>
+import { onMounted } from 'vue';
 
-nav {
-  padding: 30px;
-}
+onMounted(() => {
+  window.electronApi.onUpdateAvailable((event) => console.log('available', {event}));
+  window.electronApi.onUpdateDownloaded((event) => console.log('downloaded', {event}));
+});
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
