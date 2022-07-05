@@ -20,10 +20,15 @@ export const useTasks = defineStore("tasks", {
       this.tasks.forEach((each) => each.stop());
       task.start();
     },
+
     stopTask(task) {
       console.log("stop");
       const entry = this.tasks.find((each) => each._id === task._id);
       entry.stop();
+    },
+
+    stopAllTasks() {
+      this.tasks.forEach((task) => task.stop());
     },
 
     sumTime() {
