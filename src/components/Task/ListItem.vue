@@ -2,11 +2,7 @@
   <div class="flex items-center space-x-2 p-2">
     <div class="flex items-center space-x-1">
       <TaskButton :task="task" @start="start" @stop="stop" />
-      <div
-        class="rounded bg-gray-200 px-1 py-0.5 font-mono text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-400"
-      >
-        {{ formatDuration(duration, true) }}
-      </div>
+      <TaskDuration :task="task" />
 
       <IButton flat round class="hover:bg-green-600/20 active:bg-green-600/30">
         <StarIcon class="h-4 text-green-600" />
@@ -93,35 +89,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import IButton from "@/components/IButton";
 import { CloudIcon, DotsVerticalIcon, PencilIcon } from "@heroicons/vue/solid";
 import { StarIcon } from "@heroicons/vue/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { useTasks } from "@/composables/useTasks";
-import { useDuration } from "@/composables/useDuration";
-import { useIntervalFn } from "@vueuse/core";
 import TaskButton from "@/components/Task/TaskButton";
+import TaskDuration from "@/components/Task/TaskDuration";
 
 const props = defineProps({ task: Object });
 
 const tasksState = useTasks();
-const duration = ref(props.task.duration);
-
-const { formatDuration } = useDuration();
-
-const { resume, pause } = useIntervalFn(
-  () => (duration.value = props.task.duration),
-  1000
-);
 
 function start() {
-  resume();
   tasksState.startTask(props.task);
 }
 
 function stop() {
   tasksState.stopTask(props.task);
-  pause();
 }
 </script>

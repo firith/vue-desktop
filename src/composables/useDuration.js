@@ -1,5 +1,8 @@
 export const useDuration = () => {
   function formatDuration(value, showSeconds = false) {
+    if (!Number.isInteger(value)) {
+      value = 0;
+    }
     const hours = Math.floor(value / 3600);
     value -= hours * 3600;
     const minutes = Math.floor(value / 60);

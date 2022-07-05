@@ -25,13 +25,7 @@
     <footer
       class="sticky bottom-0 space-y-3 border-t border-t-gray-300 bg-gray-100 p-4 shadow-inner dark:border-t-gray-700 dark:bg-gray-900"
     >
-      <div class="text-sm text-gray-800 dark:text-gray-300">
-        Összesen: <strong>3:00</strong> (Timer: <strong>01:00</strong> +
-        Redmine: <strong>02:00</strong>)
-      </div>
-      <div class="h-2 rounded-full bg-gray-300 shadow-inner dark:bg-gray-700">
-        <div class="h-2 rounded-full bg-red-500" style="width: 40%"></div>
-      </div>
+      <DurationSummary />
     </footer>
   </div>
 </template>
@@ -40,8 +34,8 @@
 import { onMounted } from "vue";
 import IntrenLogo from "@/components/IntrenLogo";
 import IButton from "@/components/IButton";
-
 import { CogIcon, PencilIcon } from "@heroicons/vue/solid";
+import DurationSummary from "@/components/DurationSummary";
 
 onMounted(() => {
   window.electronApi.onUpdateAvailable((event) =>

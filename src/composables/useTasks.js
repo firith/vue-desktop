@@ -25,5 +25,11 @@ export const useTasks = defineStore("tasks", {
       const entry = this.tasks.find((each) => each._id === task._id);
       entry.stop();
     },
+
+    sumTime() {
+      return this.tasks
+        .map((each) => each.duration)
+        .reduce((sum, duration) => sum + duration);
+    },
   },
 });
