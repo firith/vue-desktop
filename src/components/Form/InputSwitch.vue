@@ -1,9 +1,7 @@
 <template>
   <SwitchGroup>
     <div class="flex items-center justify-between py-3 px-3">
-      <SwitchLabel class="text-gray-800 dark:text-gray-300"
-        >Időzítő törlése feltöltés után</SwitchLabel
-      >
+      <SwitchLabel class="text-gray-800 dark:text-gray-300">{{ label }}</SwitchLabel>
       <div>
         <Switch
           :model-value="modelValue"
@@ -31,7 +29,8 @@
 </template>
 
 <script setup>
-import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
-defineProps({ modelValue: Boolean });
-defineEmits(["update:modelValue"]);
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+
+defineProps({ modelValue: Boolean, label: String })
+defineEmits(['update:modelValue'])
 </script>

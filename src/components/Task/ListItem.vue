@@ -1,12 +1,7 @@
 <template>
   <div class="flex items-center space-x-2 p-2">
     <div class="flex items-center space-x-1">
-      <IButton
-        round
-        flat
-        v-if="editMode"
-        class="hover:bg-red-500/20 active:bg-red-500/30"
-      >
+      <IButton round flat v-if="editMode" class="hover:bg-red-500/20 active:bg-red-500/30">
         <TrashIcon class="h-6 w-6 text-red-600" />
       </IButton>
       <TaskButton v-if="!editMode" :task="task" @start="start" @stop="stop" />
@@ -24,20 +19,16 @@
       <div class="overflow-hidden truncate text-sm text-blue-600 underline">
         #18119 Alternatív foglalómotoros eset (12Révay - Globres)
       </div>
-      <div class="overflow-hidden truncate text-xs text-blue-600 underline">
-        Alternatív foglalómotor implementálása
-      </div>
+      <div class="overflow-hidden truncate text-xs text-blue-600 underline">Alternatív foglalómotor implementálása</div>
     </div>
 
-    <div class="p-1.5">
+    <div class="p-1.5" v-if="editMode">
       <ViewListIcon class="h-6 w-6 text-gray-400" />
     </div>
 
     <Menu as="div" class="relative inline-block text-left" v-if="!editMode">
       <MenuButton as="template">
-        <button
-          class="rounded-full p-1.5 hover:bg-gray-500/20 focus:outline-none active:bg-gray-500/30"
-        >
+        <button class="rounded-full p-1.5 hover:bg-gray-500/20 focus:outline-none active:bg-gray-500/30">
           <DotsVerticalIcon class="h-5 text-gray-500" />
         </button>
       </MenuButton>
@@ -56,18 +47,14 @@
             <MenuItem v-slot="{ active }">
               <button
                 :class="[
-                  active
-                    ? 'bg-blue-500 text-white dark:text-blue-500'
-                    : 'text-gray-900 dark:text-gray-300',
+                  active ? 'bg-blue-500 text-white dark:text-blue-500' : 'text-gray-900 dark:text-gray-300',
                   'group flex w-full items-center rounded-md bg-white px-2 py-2 text-sm dark:bg-transparent',
                 ]"
               >
                 <CloudIcon
                   :class="[
                     'mr-2 h-5 w-5',
-                    active
-                      ? 'text-white dark:text-blue-500'
-                      : 'text-blue-500 dark:text-gray-300',
+                    active ? 'text-white dark:text-blue-500' : 'text-blue-500 dark:text-gray-300',
                   ]"
                 />
                 Upload
@@ -76,18 +63,14 @@
             <MenuItem v-slot="{ active }">
               <button
                 :class="[
-                  active
-                    ? 'bg-blue-500 text-white dark:text-blue-500'
-                    : 'text-gray-900 dark:text-gray-300',
+                  active ? 'bg-blue-500 text-white dark:text-blue-500' : 'text-gray-900 dark:text-gray-300',
                   'group flex w-full items-center rounded-md bg-white px-2 py-2 text-sm dark:bg-transparent',
                 ]"
               >
                 <PencilIcon
                   :class="[
                     'mr-2 h-5 w-5',
-                    active
-                      ? 'text-white dark:text-blue-500'
-                      : 'text-blue-500 dark:text-gray-300',
+                    active ? 'text-white dark:text-blue-500' : 'text-blue-500 dark:text-gray-300',
                   ]"
                 />
                 Edit
@@ -101,23 +84,23 @@
 </template>
 
 <script setup>
-import IButton from "@/components/IButton";
-import { CloudIcon, DotsVerticalIcon, PencilIcon } from "@heroicons/vue/solid";
-import { StarIcon, TrashIcon, ViewListIcon } from "@heroicons/vue/outline";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import { useTasks } from "@/composables/useTasks";
-import TaskButton from "@/components/Task/TaskButton";
-import TaskDuration from "@/components/Task/TaskDuration";
+import IButton from '@/components/IButton'
+import { CloudIcon, DotsVerticalIcon, PencilIcon } from '@heroicons/vue/solid'
+import { StarIcon, TrashIcon, ViewListIcon } from '@heroicons/vue/outline'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { useTasks } from '@/composables/useTasks'
+import TaskButton from '@/components/Task/TaskButton'
+import TaskDuration from '@/components/Task/TaskDuration'
 
-const props = defineProps({ task: Object, editMode: Boolean });
+const props = defineProps({ task: Object, editMode: Boolean })
 
-const tasksState = useTasks();
+const tasksStore = useTasks()
 
 function start() {
-  tasksState.startTask(props.task);
+  tasksStore.startTask(props.task)
 }
 
 function stop() {
-  tasksState.stopTask(props.task);
+  tasksStore.stopTask(props.task)
 }
 </script>

@@ -26,21 +26,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import TaskList from "@/components/Task/TaskList";
-import { useTasks } from "@/composables/useTasks";
-import AppBar from "@/components/AppBar";
-import { Task } from "@/models/task";
-import AppFooter from "@/components/AppFooter";
-import IntrenLogo from "@/components/IntrenLogo";
-import IButton from "@/components/IButton";
-import { CogIcon, PencilIcon } from "@heroicons/vue/solid";
-import AppContent from "@/components/AppContent";
+import { ref } from 'vue'
+import TaskList from '@/components/Task/TaskList'
+import { useTasks } from '@/composables/useTasks'
+import AppBar from '@/components/AppBar'
+import { Task } from '@/models/task'
+import AppFooter from '@/components/AppFooter'
+import IntrenLogo from '@/components/IntrenLogo'
+import IButton from '@/components/IButton'
+import { CogIcon, PencilIcon } from '@heroicons/vue/solid'
+import AppContent from '@/components/AppContent'
 
-const tasksState = useTasks();
-const editMode = ref(false);
+const tasksStore = useTasks()
+const editMode = ref(false)
 
 function onClick() {
-  tasksState.addTask(new Task());
+  tasksStore.addTask(new Task())
 }
 </script>

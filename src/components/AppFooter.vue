@@ -7,5 +7,5 @@
 </template>
 
 <script setup>
-import DurationSummary from "@/components/DurationSummary";
+import DurationSummary from '@/components/DurationSummary'
 </script>

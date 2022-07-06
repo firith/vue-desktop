@@ -7,26 +7,23 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
-import { useDuration } from "@/composables/useDuration";
-import { useIntervalFn } from "@vueuse/core/index";
+import { ref, watch } from 'vue'
+import { useDuration } from '@/composables/useDuration'
+import { useIntervalFn } from '@vueuse/core/index'
 
-const props = defineProps({ task: Object });
+const props = defineProps({ task: Object })
 
-const duration = ref(props.task.duration);
+const duration = ref(props.task.duration)
 
-const { resume, pause } = useIntervalFn(
-  () => (duration.value = props.task.duration),
-  1000
-);
+const { resume, pause } = useIntervalFn(() => (duration.value = props.task.duration), 1000)
 
 watch(
   () => props.task.running,
   (running) => {
-    running ? resume() : pause();
+    running ? resume() : pause()
   },
   { immediate: true }
-);
+)
 
-const { formatDuration } = useDuration();
+const { formatDuration } = useDuration()
 </script>

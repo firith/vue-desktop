@@ -11,5 +11,5 @@
 </template>
 
 <script setup>
-defineProps({ flat: Boolean, round: Boolean });
+defineProps({ flat: Boolean, round: Boolean })
 </script>
