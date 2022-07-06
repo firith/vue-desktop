@@ -5,7 +5,10 @@
     <strong>{{ formatDuration(redmineDuration) }}</strong>
   </div>
   <div class="h-2 rounded-full bg-gray-300 shadow-inner dark:bg-gray-700">
-    <div class="h-2 rounded-full bg-red-500" style="width: 40%"></div>
+    <div
+      class="h-2 rounded-full bg-red-500 dark:bg-red-800"
+      style="width: 40%"
+    ></div>
   </div>
 </template>
 

@@ -4,27 +4,29 @@
       <IntrenLogo class="h-5" />
     </template>
     <template #right>
-      <IButton round flat>
+      <IButton @click="editMode = false" v-if="editMode">
+        <div class="py-[2px] text-sm uppercase text-white">Kész</div>
+      </IButton>
+      <IButton round flat @click="editMode = true" v-if="!editMode">
         <PencilIcon class="h-6 text-white" />
       </IButton>
 
-      <IButton round flat>
+      <IButton round flat @click="$router.push('/settings')" v-if="!editMode">
         <CogIcon class="h-6 text-white" />
       </IButton>
     </template>
   </AppBar>
-  <div
-    class="h-full bg-tree bg-right-bottom bg-no-repeat dark:bg-gray-800 dark:bg-none"
-  >
-    <TaskList />
+  <AppContent class="bg-tree bg-right-bottom bg-no-repeat dark:bg-none">
+    <TaskList :edit-mode="editMode" />
 
     <button @click="onClick">add</button>
-  </div>
+  </AppContent>
 
   <AppFooter />
 </template>
 
 <script setup>
+import { ref } from "vue";
 import TaskList from "@/components/Task/TaskList";
 import { useTasks } from "@/composables/useTasks";
 import AppBar from "@/components/AppBar";
@@ -33,8 +35,10 @@ import AppFooter from "@/components/AppFooter";
 import IntrenLogo from "@/components/IntrenLogo";
 import IButton from "@/components/IButton";
 import { CogIcon, PencilIcon } from "@heroicons/vue/solid";
+import AppContent from "@/components/AppContent";
 
 const tasksState = useTasks();
+const editMode = ref(false);
 
 function onClick() {
   tasksState.addTask(new Task());

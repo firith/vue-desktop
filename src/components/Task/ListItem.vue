@@ -1,7 +1,15 @@
 <template>
   <div class="flex items-center space-x-2 p-2">
     <div class="flex items-center space-x-1">
-      <TaskButton :task="task" @start="start" @stop="stop" />
+      <IButton
+        round
+        flat
+        v-if="editMode"
+        class="hover:bg-red-500/20 active:bg-red-500/30"
+      >
+        <TrashIcon class="h-6 w-6 text-red-600" />
+      </IButton>
+      <TaskButton v-if="!editMode" :task="task" @start="start" @stop="stop" />
       <TaskDuration :task="task" />
 
       <IButton flat round class="hover:bg-green-600/20 active:bg-green-600/30">
@@ -21,7 +29,11 @@
       </div>
     </div>
 
-    <Menu as="div" class="relative inline-block text-left">
+    <div class="p-1.5">
+      <ViewListIcon class="h-6 w-6 text-gray-400" />
+    </div>
+
+    <Menu as="div" class="relative inline-block text-left" v-if="!editMode">
       <MenuButton as="template">
         <button
           class="rounded-full p-1.5 hover:bg-gray-500/20 focus:outline-none active:bg-gray-500/30"
@@ -91,13 +103,13 @@
 <script setup>
 import IButton from "@/components/IButton";
 import { CloudIcon, DotsVerticalIcon, PencilIcon } from "@heroicons/vue/solid";
-import { StarIcon } from "@heroicons/vue/outline";
+import { StarIcon, TrashIcon, ViewListIcon } from "@heroicons/vue/outline";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { useTasks } from "@/composables/useTasks";
 import TaskButton from "@/components/Task/TaskButton";
 import TaskDuration from "@/components/Task/TaskDuration";
 
-const props = defineProps({ task: Object });
+const props = defineProps({ task: Object, editMode: Boolean });
 
 const tasksState = useTasks();
 
