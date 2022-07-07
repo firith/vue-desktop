@@ -5,8 +5,12 @@ module.exports = defineConfig({
     electronBuilder: {
       preload: 'src/preload.js',
       builderOptions: {
-        publish: ['github']
-      }
-    }
-  }
+        publish: ['github'],
+        productName: 'Redmine Timer',
+        mac: {
+          icon: 'src/assets/app/app.icns',
+        },
+      },
+    },
+  },
 })

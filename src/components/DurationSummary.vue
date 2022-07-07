@@ -15,18 +15,19 @@ import { useTasks } from '@/composables/useTasks'
 import { useDuration } from '@/composables/useDuration'
 import { useIntervalFn } from '@vueuse/core/index'
 
-const taskState = useTasks()
+const tasksStore = useTasks()
 
-const timerDuration = ref(taskState.sumTime)
-const redmineDuration = ref(3600)
+const timerDuration = ref(tasksStore.sumTime)
+const redmineDuration = ref(1800)
 
 const { resume } = useIntervalFn(() => {
-  timerDuration.value = taskState.sumTime()
+  timerDuration.value = tasksStore.sumTime()
 }, 1000)
 
 const sumDuration = computed(() => timerDuration.value + redmineDuration.value)
 
 onMounted(() => resume())
+onMounted(() => (timerDuration.value = tasksStore.sumTime()))
 
 const { formatDuration } = useDuration()
 </script>

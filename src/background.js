@@ -2,7 +2,7 @@
 
 import { app, BrowserWindow, ipcMain, protocol } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import installExtension, { APOLLO_DEVELOPER_TOOLS, VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path')
@@ -38,7 +38,9 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 
-  win.once('ready-to-show', () => {})
+  win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify()
+  })
 }
 
 // Quit when all windows are closed.
@@ -82,6 +84,7 @@ app.on('ready', async () => {
     // Install Vue Devtools
     try {
       await installExtension(VUEJS3_DEVTOOLS)
+      await installExtension(APOLLO_DEVELOPER_TOOLS)
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }

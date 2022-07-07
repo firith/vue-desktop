@@ -15,14 +15,18 @@ export const useTasks = defineStore('tasks', {
     addTask(task) {
       this.tasks.push(task)
     },
+
+    deleteTask(task) {
+      this.tasks = this.tasks.filter((each) => each.id !== task.id)
+    },
+
     startTask(task) {
       this.tasks.forEach((each) => each.stop())
       task.start()
     },
 
     stopTask(task) {
-      console.log('stop')
-      const entry = this.tasks.find((each) => each._id === task._id)
+      const entry = this.tasks.find((each) => each.id === task.id)
       entry.stop()
     },
 
@@ -30,8 +34,19 @@ export const useTasks = defineStore('tasks', {
       this.tasks.forEach((task) => task.stop())
     },
 
+    pinTask(task, pinned) {
+      this.tasks = this.tasks.map((each) => {
+        if (each.id !== task.id) {
+          return each
+        }
+
+        each.pinned = pinned
+        return each
+      })
+    },
+
     sumTime() {
-      return this.tasks.map((each) => each.duration).reduce((sum, duration) => sum + duration)
+      return this.tasks.map((each) => each.duration).reduce((sum, duration) => sum + duration, 0)
     },
   },
 })

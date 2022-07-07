@@ -1,15 +1,13 @@
 <template>
   <div class="flex items-center space-x-2 p-2">
     <div class="flex items-center space-x-1">
-      <IButton round flat v-if="editMode" class="hover:bg-red-500/20 active:bg-red-500/30">
+      <IButton round flat v-if="editMode" class="hover:bg-red-500/20 active:bg-red-500/30" @click="deleteTask">
         <TrashIcon class="h-6 w-6 text-red-600" />
       </IButton>
       <TaskButton v-if="!editMode" :task="task" @start="start" @stop="stop" />
       <TaskDuration :task="task" />
 
-      <IButton flat round class="hover:bg-green-600/20 active:bg-green-600/30">
-        <StarIcon class="h-4 text-green-600" />
-      </IButton>
+      <TaskFavorite :task="task" @change="onPinChanged" />
     </div>
 
     <div class="flex min-w-0 flex-1 flex-col text-gray-800 dark:text-gray-300">
@@ -22,7 +20,7 @@
       <div class="overflow-hidden truncate text-xs text-blue-600 underline">Alternatív foglalómotor implementálása</div>
     </div>
 
-    <div class="p-1.5" v-if="editMode">
+    <div class="handle p-1.5" v-if="editMode">
       <ViewListIcon class="h-6 w-6 text-gray-400" />
     </div>
 
@@ -86,11 +84,12 @@
 <script setup>
 import IButton from '@/components/IButton'
 import { CloudIcon, DotsVerticalIcon, PencilIcon } from '@heroicons/vue/solid'
-import { StarIcon, TrashIcon, ViewListIcon } from '@heroicons/vue/outline'
+import { TrashIcon, ViewListIcon } from '@heroicons/vue/outline'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { useTasks } from '@/composables/useTasks'
 import TaskButton from '@/components/Task/TaskButton'
 import TaskDuration from '@/components/Task/TaskDuration'
+import TaskFavorite from '@/components/Task/TaskFavorite'
 
 const props = defineProps({ task: Object, editMode: Boolean })
 
@@ -102,5 +101,13 @@ function start() {
 
 function stop() {
   tasksStore.stopTask(props.task)
+}
+
+function deleteTask() {
+  tasksStore.deleteTask(props.task)
+}
+
+function onPinChanged(pinned) {
+  tasksStore.pinTask(props.task, pinned)
 }
 </script>
