@@ -1,8 +1,6 @@
 <template>
   <draggable
     v-if="items.length > 0"
-    handle=".handle"
-    :disabled="!editMode"
     v-model="items"
     item-key="id"
     class="divide-y bg-white/80 py-2 dark:divide-gray-600 dark:bg-transparent"

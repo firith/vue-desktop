@@ -1,7 +1,7 @@
 <template>
   <AppBar>
     <template #left>
-      <IntrenLogo class="h-5" />
+      <IntrenLogo class="h-4" />
     </template>
     <template #right>
       <IButton @click="editMode = false" v-if="editMode">

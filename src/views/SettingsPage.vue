@@ -2,14 +2,18 @@
   <AppBar>
     <template #left> Beállítások</template>
     <template #right>
-      <IButton round flat @click="$router.push('/')">
+      <IButton round flat @click="$router.push({ name: 'home' })">
         <XIcon class="h-6 text-white" />
       </IButton>
     </template>
   </AppBar>
   <AppContent class="flex flex-col justify-between pb-4">
     <div class="divide-y py-2">
-      <ActivitySelect v-model="activity" />
+      <ActivitySelect
+        :model-value="settingsStore.settings.default_activity"
+        @update:model-value="updateSetting('default_activity', $event)"
+        :activities="activitiesStore.activities"
+      />
       <InputSwitch
         :model-value="settingsStore.settings.start_task_after_created"
         label="Időzítő automatikus elindítása"
@@ -29,19 +33,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AppBar from '@/components/AppBar'
 import IButton from '@/components/IButton'
 import { XIcon } from '@heroicons/vue/solid'
 import AppContent from '@/components/AppContent'
 import InputSwitch from '@/components/Form/InputSwitch'
 import { useSettings } from '@/composables/useSettings'
+import { useActivities } from '@/composables/useActivities'
 import ActivitySelect from '@/components/Form/ActivitySelect'
 
 const enabled = ref(false)
-const activity = ref(null)
 
 const settingsStore = useSettings()
+const activitiesStore = useActivities()
+onMounted(() => activitiesStore.load())
 
 function updateSetting(key, value) {
   settingsStore.$patch((state) => (state.settings[key] = value))

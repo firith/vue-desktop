@@ -1,6 +1,9 @@
 <template>
   <div
-    class="rounded bg-gray-200 px-1 py-0.5 font-mono text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-400"
+    :class="[
+      'rounded px-1 py-0.5 font-mono text-xs font-semibold  ',
+      task.running ? 'bg-blue-600 text-blue-100' : ' bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-400',
+    ]"
   >
     {{ formatDuration(duration, true) }}
   </div>

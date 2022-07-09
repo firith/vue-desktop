@@ -2,7 +2,7 @@
 
 import { app, BrowserWindow, ipcMain, protocol } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { APOLLO_DEVELOPER_TOOLS, VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import installExtension, { APOLLO_DEVELOPER_TOOLS, VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path')
@@ -18,6 +18,7 @@ async function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    titleBarStyle: 'hidden',
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -76,6 +77,8 @@ ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall()
 })
 
+ipcMain.on('operating_system', (event) => event.sender.send('operating_system', process.platform))
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -83,7 +86,7 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      await installExtension(VUEJS3_DEVTOOLS)
+      await installExtension(VUEJS_DEVTOOLS)
       await installExtension(APOLLO_DEVELOPER_TOOLS)
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())

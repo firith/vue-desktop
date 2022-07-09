@@ -3,7 +3,7 @@
     <label class="shrink-0 text-gray-800 dark:text-gray-300">Alapértelmezett aktivitás</label>
     <button class="flex items-center space-x-1 overflow-hidden text-gray-900" @click="openModal">
       <span class="truncate text-gray-800 dark:text-gray-300">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, maiores!
+        {{ selectedLabel }}
       </span>
       <ChevronDownIcon class="h-6 w-6 shrink-0 text-gray-800 dark:text-gray-300" />
     </button>
@@ -39,25 +39,50 @@
                   Alapértelmezett aktivitás
                 </DialogTitle>
                 <div class="h-80 overflow-scroll py-3 px-3 text-sm">
-                  <div class="flex cursor-pointer items-center space-x-4 py-2">
-                    <div class="h-4 w-4 rounded-full border-2 border-gray-400"></div>
-                    <span>Nincs beállítva</span>
-                  </div>
-                  <div class="flex cursor-pointer items-center space-x-4 py-2 text-blue-600">
-                    <div class="h-4 w-4 rounded-full bg-blue-500"></div>
-                    <span>Account management</span>
-                  </div>
-                  <div class="flex cursor-pointer items-center space-x-4 py-2">
-                    <div class="h-4 w-4 rounded-full border-2 border-gray-400"></div>
-                    <span>Analytics szakértő</span>
-                  </div>
+                  <button class="flex items-center space-x-4 py-2" @click="selected = null">
+                    <span
+                      :class="[
+                        'block h-4 w-4 rounded-full ',
+                        selected == null ? 'bg-blue-500' : 'border-2 border-gray-400',
+                      ]"
+                    ></span>
+                    <span
+                      :class="[
+                        'flex items-center space-x-4 py-2',
+                        selected == null ? 'text-blue-600' : 'text-gray-800 dark:text-gray-300',
+                      ]"
+                    >
+                      Nincs beállítva
+                    </span>
+                  </button>
+                  <button
+                    v-for="activity in activities"
+                    :key="activity.id"
+                    :class="[
+                      'flex items-center space-x-4 py-2',
+                      activity.id == selected ? 'text-blue-600' : 'text-gray-800 dark:text-gray-300',
+                    ]"
+                    @click="selected = activity.id"
+                  >
+                    <span
+                      :class="[
+                        'block h-4 w-4 rounded-full ',
+                        activity.id == selected ? 'bg-blue-500' : 'border-2 border-gray-400',
+                      ]"
+                    ></span>
+                    <span>{{ activity.name }}</span>
+                  </button>
                 </div>
 
                 <div class="flex justify-end space-x-2 px-3 py-3">
-                  <IButton type="button" @click="closeModal" class="uppercase text-blue-600 hover:text-blue-800">
+                  <IButton type="button" @click="dismiss" class="text-sm uppercase text-blue-600 hover:text-blue-800">
                     Cancel
                   </IButton>
-                  <IButton type="button" @click="closeModal" class="uppercase text-blue-600 hover:text-blue-800">
+                  <IButton
+                    type="button"
+                    @click="closeModal"
+                    class="text-sm uppercase text-blue-600 hover:text-blue-800"
+                  >
                     Ok
                   </IButton>
                 </div>
@@ -71,22 +96,37 @@
 </template>
 
 <script setup>
-defineProps(['modelValue'])
-defineEmits(['update:modelValue'])
-
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import IButton from '@/components/IButton'
 
+const props = defineProps({ modelValue: [Number, String], activities: Array })
+const emit = defineEmits(['update:modelValue'])
+
 const isOpen = ref(false)
+const selected = ref(props.modelValue)
+
+const selectedLabel = computed(() => {
+  if (selected.value == null) {
+    return 'Nincs kiválasztva'
+  }
+
+  return props.activities.find((each) => each.id == props.modelValue)?.name
+})
+
+function dismiss() {
+  isOpen.value = false
+}
 
 function closeModal() {
   isOpen.value = false
+  emit('update:modelValue', selected.value)
 }
 
 function openModal() {
   isOpen.value = true
+  selected.value = props.modelValue
 }
 </script>
