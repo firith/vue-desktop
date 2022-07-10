@@ -18,7 +18,6 @@ export const useActivities = defineStore('activities', {
             }
           }
         `,
-        fetchPolicy: 'cache-first',
       })
 
       this.activities = data.activities

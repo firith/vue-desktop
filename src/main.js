@@ -5,7 +5,14 @@ import './assets/tailwind.css'
 import { createPinia } from 'pinia'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { apolloClient } from '@/apollo-client'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 const pinia = createPinia()
 
-createApp(App).provide(DefaultApolloClient, apolloClient).use(router).use(pinia).mount('#app')
+const app = createApp(App).use(VueAxios, axios).use(router).use(pinia)
+
+app.provide(DefaultApolloClient, apolloClient)
+app.provide('axios', app.config.globalProperties.axios)
+
+app.mount('#app')

@@ -1,10 +1,11 @@
-import { defineStore } from 'pinia/dist/pinia.esm-browser'
+import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 
 const INITIAL_STATE = {
   default_activity: null,
   delete_task_after_upload: false,
   start_task_after_created: false,
+  user_id: null,
 }
 
 export const useSettings = defineStore('settings', {
