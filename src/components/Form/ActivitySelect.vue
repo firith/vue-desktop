@@ -43,13 +43,13 @@
                     <span
                       :class="[
                         'block h-4 w-4 rounded-full ',
-                        selected == null ? 'bg-blue-500' : 'border-2 border-gray-400',
+                        selected == null ? 'bg-indigo-500' : 'border-2 border-gray-400',
                       ]"
                     ></span>
                     <span
                       :class="[
                         'flex items-center space-x-4 py-2',
-                        selected == null ? 'text-blue-600' : 'text-gray-800 dark:text-gray-300',
+                        selected == null ? 'text-indigo-600' : 'text-gray-800 dark:text-gray-300',
                       ]"
                     >
                       Nincs beállítva
@@ -60,14 +60,14 @@
                     :key="activity.id"
                     :class="[
                       'flex items-center space-x-4 py-2',
-                      activity.id == selected ? 'text-blue-600' : 'text-gray-800 dark:text-gray-300',
+                      activity.id == selected ? 'text-indigo-600' : 'text-gray-800 dark:text-gray-300',
                     ]"
                     @click="selected = activity.id"
                   >
                     <span
                       :class="[
                         'block h-4 w-4 rounded-full ',
-                        activity.id == selected ? 'bg-blue-500' : 'border-2 border-gray-400',
+                        activity.id == selected ? 'bg-indigo-500' : 'border-2 border-gray-400',
                       ]"
                     ></span>
                     <span>{{ activity.name }}</span>
@@ -75,13 +75,17 @@
                 </div>
 
                 <div class="flex justify-end space-x-2 px-3 py-3">
-                  <IButton type="button" @click="dismiss" class="text-sm uppercase text-blue-600 hover:text-blue-800">
+                  <IButton
+                    type="button"
+                    @click="dismiss"
+                    class="text-sm uppercase text-indigo-600 hover:text-indigo-800"
+                  >
                     Cancel
                   </IButton>
                   <IButton
                     type="button"
                     @click="closeModal"
-                    class="text-sm uppercase text-blue-600 hover:text-blue-800"
+                    class="text-sm uppercase text-indigo-600 hover:text-indigo-800"
                   >
                     Ok
                   </IButton>

@@ -11,7 +11,7 @@
           <span
             aria-hidden="true"
             :class="[
-              modelValue ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700',
+              modelValue ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-gray-700',
               'pointer-events-none absolute mx-auto h-4 w-9 rounded-full shadow-inner transition-colors duration-200 ease-in-out',
             ]"
           />
