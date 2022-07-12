@@ -39,9 +39,11 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 
-  win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify()
-  })
+  if (!isDevelopment) {
+    win.once('ready-to-show', () => {
+      autoUpdater.checkForUpdatesAndNotify()
+    })
+  }
 }
 
 // Quit when all windows are closed.
