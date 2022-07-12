@@ -3,28 +3,30 @@
     <div
       :class="[
         'h-auto overflow-hidden rounded-lg bg-green-200 p-5 shadow transition-all duration-200 ease-in-out',
-        task.running ? 'max-h-72' : 'max-h-28',
+        task.running ? 'max-h-72' : 'max-h-36',
       ]"
     >
-      <div class="flex items-center gap-4" v-if="!task.running">
-        <div class="flex min-w-0 flex-1 flex-col dark:text-gray-300">
-          <div class="mb-3 overflow-hidden truncate font-medium text-zinc-800">
+      <div class="space-y-2" v-if="!task.running">
+        <div class="flex items-center justify-between space-x-4">
+          <div class="truncate font-medium text-zinc-800">
             DEV - accenthotels.com [ReWork v3,4,5] (Accent Hotel Solutions Kft.)
           </div>
-          <div class="mb-2 overflow-hidden truncate text-xs text-blue-800 underline">
-            #18119 Alternatív foglalómotoros eset (12Révay - Globres)
-          </div>
-          <div class="truncate text-xs font-light text-zinc-700">Alternatív foglalómotor implementálása</div>
-        </div>
-        <div class="font-mono text-sm text-blue-800">{{ formatDuration(task.duration, true) }}</div>
-        <div class="relative h-6">
-          <div class="absolute -top-7">
+          <button>
             <DotsHorizontalIcon class="w-6 text-blue-600" />
-          </div>
-          <button @click="start">
-            <PlayIcon class="h-6 text-blue-800" />
           </button>
         </div>
+        <div class="flex items-center justify-between space-x-4">
+          <div class="truncate text-xs text-blue-800 underline">
+            #18119 Alternatív foglalómotoros eset (12Révay - Globres)
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="font-mono text-sm text-blue-800">{{ formatDuration(task.duration, true) }}</div>
+            <button @click="start">
+              <PlayIcon class="h-5 text-blue-800" />
+            </button>
+          </div>
+        </div>
+        <div class="truncate text-xs font-light text-zinc-700">Alternatív foglalómotor implementálása</div>
       </div>
 
       <div class="relative" v-else>
