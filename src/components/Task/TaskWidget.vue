@@ -1,36 +1,37 @@
 <template>
   <div>
-    <div
-      :class="[
-        'h-auto overflow-hidden rounded-lg bg-green-200 p-5 shadow transition-all duration-200 ease-in-out',
-        task.running ? 'max-h-72' : 'max-h-36',
-      ]"
-    >
-      <div class="space-y-2" v-if="!task.running">
-        <div class="flex items-center justify-between space-x-4">
+    <div :class="['relative h-auto overflow-hidden rounded-lg bg-green-200 px-5 pb-5 pt-8 shadow']">
+      <div v-if="!expanded">
+        <div class="mb-3 flex items-center justify-between space-x-4">
           <div class="truncate font-medium text-zinc-800">
             DEV - accenthotels.com [ReWork v3,4,5] (Accent Hotel Solutions Kft.)
           </div>
-          <button>
-            <DotsHorizontalIcon class="w-6 text-blue-600" />
+          <button class="absolute top-2 right-2" @click="expanded = true">
+            <MaximizeIcon class="w-4 text-blue-800" />
           </button>
         </div>
-        <div class="flex items-center justify-between space-x-4">
+        <div class="mb-2 flex items-center justify-between space-x-4">
           <div class="truncate text-xs text-blue-800 underline">
             #18119 Alternatív foglalómotoros eset (12Révay - Globres)
           </div>
           <div class="flex items-center space-x-4">
-            <div class="font-mono text-sm text-blue-800">{{ formatDuration(task.duration, true) }}</div>
-            <button @click="start">
+            <div class="font-mono text-sm text-blue-800">{{ formatDuration(duration, true) }}</div>
+            <button @click="start" v-if="!task.running">
               <PlayIcon class="h-5 text-blue-800" />
+            </button>
+            <button @click="stop" v-if="task.running">
+              <PauseIcon class="h-5 text-blue-800" />
             </button>
           </div>
         </div>
         <div class="truncate text-xs font-light text-zinc-700">Alternatív foglalómotor implementálása</div>
       </div>
 
-      <div class="relative" v-else>
-        <div class="absolute top-5 right-0 flex flex-col space-y-4">
+      <div v-else>
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" @click="expanded = false">
+          <MinimizeIcon class="w-4" />
+        </button>
+        <div class="absolute top-16 right-5 flex flex-col space-y-4">
           <button>
             <PinIcon class="h-5 text-blue-800" />
           </button>
@@ -62,8 +63,11 @@
             </div>
           </div>
           <div>
-            <button @click="stop" class="text-blue-800 hover:text-blue-900">
+            <button @click="stop" v-if="task.running" class="text-blue-800 hover:text-blue-900">
               <PauseIcon class="w-16" />
+            </button>
+            <button @click="start" v-if="!task.running" class="text-blue-800 hover:text-blue-900">
+              <PlayIcon class="w-16" />
             </button>
           </div>
         </div>
@@ -74,7 +78,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { DotsHorizontalIcon } from '@heroicons/vue/outline'
 import PlayIcon from '@/components/Icons/PlayIcon'
 import PinIcon from '@/components/Icons/PinIcon'
 import PauseIcon from '@/components/Icons/PauseIcon'
@@ -83,7 +86,8 @@ import TrashIcon from '@/components/Icons/TrashIcon'
 import { useTasks } from '@/composables/useTasks'
 import { useDuration } from '@/composables/useDuration'
 import { useIntervalFn } from '@vueuse/core/index'
-import TaskMenu from '@/components/Task/TaskMenu'
+import MaximizeIcon from '@/components/Icons/MaximizeIcon'
+import MinimizeIcon from '@/components/Icons/MinimizeIcon'
 
 const props = defineProps({ task: Object })
 const { formatDuration } = useDuration()
@@ -91,9 +95,11 @@ const { resume, pause } = useIntervalFn(() => (duration.value = props.task.durat
 
 const taskStore = useTasks()
 const duration = ref(props.task.duration)
+const expanded = ref(props.task.running)
 
 function start() {
   taskStore.startTask(props.task)
+  expanded.value = true
   resume()
 }
 

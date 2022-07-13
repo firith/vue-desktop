@@ -1,8 +1,9 @@
 <template>
-  <div class="text-sm text-gray-800 dark:text-gray-300">
-    Összesen: <strong>{{ formatDuration(sumDuration) }}</strong> (Timer:
-    <strong>{{ formatDuration(timerDuration) }}</strong> + Redmine:
-    <strong>{{ formatDuration(redmineDuration) }}</strong>
+  <div class="text-sm text-zinc-700 dark:text-gray-300">
+    Összesen: <strong class="font-medium text-blue-800">{{ formatDuration(sumDuration) }}</strong> (Timer:
+    <strong class="font-medium">{{ formatDuration(timerDuration) }}</strong> + Redmine:
+    <strong class="font-medium">{{ formatDuration(redmineDuration) }}</strong
+    >)
   </div>
   <div class="h-2 rounded-full bg-gray-300 shadow-inner dark:bg-gray-700">
     <div class="h-2 rounded-full bg-red-500 dark:bg-red-800" style="width: 40%"></div>

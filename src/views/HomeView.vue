@@ -9,9 +9,15 @@
       </IButton>
     </template>
   </AppBar>
-  <AppContent class="bg-confetti">
+  <AppContent class="relative bg-confetti">
+    <button
+      class="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-blue-800 shadow-xl"
+    >
+      <PlusIcon class="h-10 w-10 text-blue-50" />
+    </button>
     <TaskList class="flex flex-col gap-5" />
   </AppContent>
+  <AppFooter class="bg-zinc-50 shadow-inner"></AppFooter>
 </template>
 
 <script setup>
@@ -21,4 +27,6 @@ import IButton from '@/components/IButton'
 import CogIcon from '@/components/Icons/CogIcon'
 import AppContent from '@/components/AppContent'
 import TaskList from '@/components/Task/TaskList'
+import AppFooter from '@/components/AppFooter'
+import { PlusIcon } from '@heroicons/vue/solid'
 </script>
