@@ -1,5 +1,11 @@
 <template>
-  <div class="flex-1 overflow-y-scroll p-5 dark:bg-gray-800">
+  <main :class="['flex-1 overflow-y-auto p-5 dark:bg-gray-800', platformStore.os === 'darwin' ? 'macos' : 'windows']">
     <slot></slot>
-  </div>
+  </main>
 </template>
+
+<script setup>
+import { usePlatform } from '@/composables/usePlatform'
+
+const platformStore = usePlatform()
+</script>

@@ -3,3 +3,17 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@layer base {
+  main.windows::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  main.windows::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  main.windows::-webkit-scrollbar-thumb {
+    background-color: #1e40af;
+  }
+}
