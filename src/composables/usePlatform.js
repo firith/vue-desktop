@@ -4,5 +4,6 @@ import { useStorage } from '@vueuse/core/index'
 export const usePlatform = defineStore('platform', {
   state: () => ({
     os: useStorage('os', 'win32'),
+    updateDownloaded: false,
   }),
 })

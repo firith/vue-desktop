@@ -15,7 +15,7 @@ const platformStore = usePlatform()
 
 onMounted(() => {
   window.electronApi.onUpdateAvailable((event) => console.log('available', { event }))
-  window.electronApi.onUpdateDownloaded((event) => console.log('downloaded', { event }))
+  window.electronApi.onUpdateDownloaded((event) => platformStore.$patch({ updateDownloaded: true }))
   window.electronApi.onAppQuit(() => tasksStore.stopAllTasks())
   window.electronApi.onOperatingSystem((_, os) => platformStore.$patch({ os }))
   window.electronApi.fetchOperatingSystem()

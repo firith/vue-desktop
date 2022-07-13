@@ -45,7 +45,7 @@ async function createWindow() {
 
   if (!isDevelopment) {
     win.once('ready-to-show', () => {
-      autoUpdater.checkForUpdatesAndNotify()
+      autoUpdater.checkForUpdates()
     })
   }
 }
