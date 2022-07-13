@@ -9,13 +9,13 @@
       </IButton>
     </template>
   </AppBar>
-  <AppContent class="relative bg-confetti">
+  <AppContent class="relative bg-confetti p-3">
     <button
       class="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-blue-800 shadow-xl"
     >
       <PlusIcon class="h-10 w-10 text-blue-50" />
     </button>
-    <TaskList class="flex flex-col gap-5" />
+    <TaskList class="flex flex-col gap-3" />
   </AppContent>
   <AppFooter class="bg-zinc-50 shadow-inner"></AppFooter>
 </template>
