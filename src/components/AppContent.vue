@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 p-5 dark:bg-gray-800">
+  <div class="flex-1 overflow-y-scroll p-5 dark:bg-gray-800">
     <slot></slot>
   </div>
 </template>
