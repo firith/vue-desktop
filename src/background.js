@@ -59,9 +59,9 @@ app.on('window-all-closed', () => {
   }
 })
 
-// app.on('before-quit', () => {
-//   win.webContents.send('quit_app')
-// })
+app.on('before-quit', () => {
+  win.webContents.send('quit_app')
+})
 //
 // process.on('exit', () => {
 //   app.quit()
