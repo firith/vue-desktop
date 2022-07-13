@@ -1,7 +1,7 @@
 <template>
   <draggable v-if="items.length > 0" v-model="items" item-key="id" ghost-class="ghost">
     <template #item="{ element }">
-      <TaskWidget :task="element" />
+      <TaskWidget :task="element" @delete="tasksStore.deleteTask" />
     </template>
   </draggable>
 </template>
@@ -11,11 +11,11 @@ import { useTasks } from '@/composables/useTasks'
 import Draggable from 'vuedraggable'
 import TaskWidget from '@/components/Task/TaskWidget'
 
-const store = useTasks()
+const tasksStore = useTasks()
 
 const items = computed({
-  get: () => store.tasks,
-  set: (tasks) => store.$patch((state) => (state.tasks = tasks)),
+  get: () => tasksStore.tasks,
+  set: (tasks) => tasksStore.$patch((state) => (state.tasks = tasks)),
 })
 </script>
 

@@ -3,14 +3,17 @@
     <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" @click="$emit('minimize')">
       <MinimizeIcon class="w-4" />
     </button>
-    <div class="absolute top-16 right-5 flex flex-col space-y-4">
+    <div class="absolute top-10 right-2 flex flex-col space-y-4">
+      <button>
+        <EditIcon class="h-4 w-4 text-blue-800" />
+      </button>
       <button>
         <PinIcon class="h-5 text-blue-800" />
       </button>
       <button>
         <UploadIcon class="h-4 w-4 text-blue-800" />
       </button>
-      <button>
+      <button @click="$emit('delete')">
         <TrashIcon class="h-4 w-4 text-red-400" />
       </button>
     </div>
@@ -54,9 +57,10 @@ import MinimizeIcon from '@/components/Icons/MinimizeIcon'
 import PlayIcon from '@/components/Icons/PlayIcon'
 import PauseIcon from '@/components/Icons/PauseIcon'
 import { useDuration } from '@/composables/useDuration'
+import EditIcon from '@/components/Icons/EditIcon'
 
 defineProps({ task: Object, duration: Number })
-defineEmits(['start', 'stop', 'minimize'])
+defineEmits(['start', 'stop', 'minimize', 'pin', 'edit', 'delete', 'upload'])
 
 const { formatDuration } = useDuration()
 </script>

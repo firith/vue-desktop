@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-3 flex items-center justify-between space-x-4">
+    <div class="mb-3 mt-1 flex items-center justify-between space-x-4">
       <div class="truncate font-medium text-zinc-800">
         DEV - accenthotels.com [ReWork v3,4,5] (Accent Hotel Solutions Kft.)
       </div>

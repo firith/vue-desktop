@@ -12,6 +12,7 @@
   <AppContent class="relative bg-confetti p-3">
     <button
       class="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-blue-800 shadow-xl"
+      @click="addTask"
     >
       <PlusIcon class="h-10 w-10 text-blue-50" />
     </button>
@@ -29,4 +30,12 @@ import AppContent from '@/components/AppContent'
 import TaskList from '@/components/Task/TaskList'
 import AppFooter from '@/components/AppFooter'
 import { PlusIcon } from '@heroicons/vue/solid'
+import { useTasks } from '@/composables/useTasks'
+import { Task } from '@/models/task'
+
+const taskStore = useTasks()
+
+function addTask() {
+  taskStore.addTask(new Task())
+}
 </script>
