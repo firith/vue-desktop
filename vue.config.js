@@ -9,7 +9,12 @@ module.exports = defineConfig({
         publish: ['github'],
         productName: 'Redmine Timer',
         mac: {
+          target: 'dmg',
           icon: 'src/assets/app/app.icns',
+        },
+        win: {
+          target: 'nsis',
+          icon: 'src/assets/app/app.ico',
         },
       },
     },

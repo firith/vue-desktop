@@ -52,10 +52,11 @@ async function createWindow() {
   }
 
   win.on('close', (event) => {
-    console.log('win close')
-    if ((process.platform === 'darwin' && macQuit && !tasksStopped) || (process.platform !== 'darwin' && !tasksStopped)) {
+    if (
+      (process.platform === 'darwin' && macQuit && !tasksStopped) ||
+      (process.platform !== 'darwin' && !tasksStopped)
+    ) {
       event.preventDefault()
-      console.log('quit_app sent')
       win.webContents.send('quit_app')
     }
   })
@@ -72,7 +73,6 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => {
   if (process.platform === 'darwin') {
-    console.log('mac quit')
     macQuit = true
   }
 })
@@ -104,7 +104,6 @@ ipcMain.on('restart_app', () => {
 ipcMain.on('operating_system', (event) => event.sender.send('operating_system', process.platform))
 
 ipcMain.on('quit', (event) => {
-  console.log('quit')
   tasksStopped = true
   app.quit()
 })
