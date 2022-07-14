@@ -53,7 +53,7 @@ async function createWindow() {
 
   win.on('close', (event) => {
     console.log('win close')
-    if (!tasksStopped && process.platform === 'darwin' && macQuit) {
+    if ((process.platform === 'darwin' && macQuit && !tasksStopped) || (process.platform !== 'darwin' && !tasksStopped)) {
       event.preventDefault()
       console.log('quit_app sent')
       win.webContents.send('quit_app')
