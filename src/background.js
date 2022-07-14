@@ -7,6 +7,7 @@ import installExtension, { APOLLO_DEVELOPER_TOOLS, VUEJS_DEVTOOLS } from 'electr
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const { autoUpdater } = require('electron-updater')
+let quitEnabled = false
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
@@ -59,8 +60,11 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('before-quit', () => {
-  win.webContents.send('quit_app')
+app.on('before-quit', (event) => {
+  if (!quitEnabled) {
+    event.preventDefault()
+    win.webContents.send('quit_app')
+  }
 })
 //
 // process.on('exit', () => {
@@ -87,6 +91,11 @@ ipcMain.on('restart_app', () => {
 })
 
 ipcMain.on('operating_system', (event) => event.sender.send('operating_system', process.platform))
+
+ipcMain.on('quit', (event) => {
+  quitEnabled = true
+  app.quit()
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
