@@ -37,7 +37,7 @@ async function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools({ mode: 'detach' })
+    if (!process.env.IS_TEST) win.webContents.openDevTools({ mode: 'bottom' })
   } else {
     createProtocol('app')
     // Load the index.html when not in development
@@ -49,6 +49,14 @@ async function createWindow() {
       autoUpdater.checkForUpdates()
     })
   }
+
+  win.on('close', (event) => {
+    if (!quitEnabled) {
+      event.preventDefault()
+      console.log('before')
+      win.webContents.send('quit_app')
+    }
+  })
 }
 
 // Quit when all windows are closed.
@@ -60,12 +68,6 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('before-quit', (event) => {
-  if (!quitEnabled) {
-    event.preventDefault()
-    win.webContents.send('quit_app')
-  }
-})
 //
 // process.on('exit', () => {
 //   app.quit()
@@ -93,6 +95,7 @@ ipcMain.on('restart_app', () => {
 ipcMain.on('operating_system', (event) => event.sender.send('operating_system', process.platform))
 
 ipcMain.on('quit', (event) => {
+  console.log('quit')
   quitEnabled = true
   app.quit()
 })

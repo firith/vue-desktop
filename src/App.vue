@@ -17,6 +17,7 @@ onMounted(() => {
   window.electronApi.onUpdateAvailable((event) => console.log('available', { event }))
   window.electronApi.onUpdateDownloaded((event) => platformStore.$patch({ updateDownloaded: true }))
   window.electronApi.onAppQuit(() => {
+    console.log('quit')
     tasksStore.stopAllTasks()
     window.electronApi.quit()
   })
