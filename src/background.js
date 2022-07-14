@@ -7,7 +7,8 @@ import installExtension, { APOLLO_DEVELOPER_TOOLS, VUEJS_DEVTOOLS } from 'electr
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const { autoUpdater } = require('electron-updater')
-let quitEnabled = false
+let tasksStopped = false
+let macQuit = false
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
@@ -51,9 +52,10 @@ async function createWindow() {
   }
 
   win.on('close', (event) => {
-    if (!quitEnabled) {
+    console.log('win close')
+    if (!tasksStopped && process.platform === 'darwin' && macQuit) {
       event.preventDefault()
-      console.log('before')
+      console.log('quit_app sent')
       win.webContents.send('quit_app')
     }
   })
@@ -65,6 +67,13 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
+  }
+})
+
+app.on('before-quit', () => {
+  if (process.platform === 'darwin') {
+    console.log('mac quit')
+    macQuit = true
   }
 })
 
@@ -96,7 +105,7 @@ ipcMain.on('operating_system', (event) => event.sender.send('operating_system', 
 
 ipcMain.on('quit', (event) => {
   console.log('quit')
-  quitEnabled = true
+  tasksStopped = true
   app.quit()
 })
 
