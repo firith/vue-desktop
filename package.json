@@ -1,6 +1,6 @@
 {
     "name": "redmine-timer",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
@@ -15,7 +15,7 @@
         "postuninstall": "electron-builder install-app-deps"
     },
     "main": "background.js",
-    "dependencies": {
+    "devDependencies": {
         "@apollo/client": "^3.6.9",
         "@vue/apollo-composable": "^4.0.0-alpha.18",
         "autoprefixer": "^10",
@@ -25,9 +25,7 @@
         "graphql-tag": "^2.12.6",
         "postcss": "^8",
         "tailwindcss": "^3",
-        "vue": "^3.2.13"
-    },
-    "devDependencies": {
+        "vue": "^3.2.13",
         "@babel/core": "^7.12.16",
         "@babel/eslint-parser": "^7.12.16",
         "@headlessui/vue": "^1.6.5",

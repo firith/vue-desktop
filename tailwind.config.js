@@ -6,8 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        tree: 'url("~@/assets/images/background-tree.png")',
-        confetti: 'url("~@/assets/images/confetti.svg")',
+        confetti: `url("./img/confetti.svg")`,
       },
       colors: {
         'intren-primary': {

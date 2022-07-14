@@ -9,7 +9,7 @@
       </IButton>
     </template>
   </AppBar>
-  <AppContent class="relative bg-confetti p-3">
+  <AppContent class="bg-confetti relative p-3">
     <button
       class="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-blue-800 shadow-xl"
       @click="addTask"
